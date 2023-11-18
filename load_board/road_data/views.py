@@ -1,12 +1,16 @@
 from django.shortcuts import render
 import json
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from . import mqtt_client
 # from .models import Truck,Load
 import datetime as dt
+from . import mqtt_client
+
 
 def read_message(request):
-    return "Hello world"
+    response = mqtt_client.getEvents()
+    
+    return HttpResponse(response)
 
 # def publish_message(request):
 #     request_data = json.loads(request.body)
