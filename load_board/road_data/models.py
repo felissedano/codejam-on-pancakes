@@ -1,10 +1,11 @@
+import uuid
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from .enumtype import Preference
 # Create your models here.
 class Truck(models.Model):
     seq = models.IntegerField()
-    truckId = models.IntegerField()
+    truckId = models.IntegerField(primary_key=True)
     timeStamp = models.DateTimeField()
     posLatitude = models.FloatField()
     posLongitude = models.FloatField()
@@ -19,7 +20,7 @@ class Truck(models.Model):
 class Load(models.Model):
     seq = models.IntegerField()
     timeStamp = models.DateTimeField()
-    loadId = models.IntegerField()
+    loadId = models.IntegerField(primary_key=True)
     ogLatitude = models.FloatField()
     ogLongitude = models.FloatField()
     destLatitude = models.FloatField()
@@ -41,3 +42,14 @@ class Load(models.Model):
         profit -= self.distanceToLoad(truckObj)*Load.PRICE
         profit -= self.mileage*Load.PRICE
         return profit
+    
+class Notification(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    truckId = models.IntegerField()
+    loadId = models.IntegerField()
+    timeSent = models.DateTimeField()
+    message = models.CharField(max_length=200)
+
+
+    def __str__(self):
+        return "truck: " + str(self.truckId) + ", received: " + str(self.message) + "at" + str(self.timeSent)
