@@ -35,16 +35,3 @@ class Load(models.Model):
         profit -= self.distanceToLoad(truckObj)*Load.PRICE
         profit -= self.mileage*Load.PRICE
         return profit
-
-
-
-
-
-
-
-        
-
-
-
-
-        
