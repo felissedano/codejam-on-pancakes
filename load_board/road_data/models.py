@@ -13,12 +13,15 @@ class Truck(models.Model):
     lastnotified = models.DateTimeField()
     idleTime = models.IntegerField()
 
+    def __str__(self):
+        return "truckId: " + str(self.truckId) + ", timestamp: " + str(self.timeStamp)
+
 class Load(models.Model):
     seq = models.IntegerField()
     timeStamp = models.DateTimeField()
     loadId = models.IntegerField()
     ogLatitude = models.FloatField()
-    ogLongtitude = models.FloatField()
+    ogLongitude = models.FloatField()
     destLatitude = models.FloatField()
     destLongitude = models.FloatField()
     eqType = models.CharField(max_length=100)
@@ -26,8 +29,11 @@ class Load(models.Model):
     mileage = models.FloatField()
     PRICE = 1.18
 
+    def __str__(self):
+        return "LoadId: " + str(self.loadId) + ", timestamp: " + str(self.timeStamp)
+
     def distanceToLoad(self,truckObj):
-        distanceToLoad = ((self.ogLatitude-truckObj.posLatitude)**2 + (self.ogLongtitude - truckObj.posLongitude)**2)**(1/2)
+        distanceToLoad = ((self.ogLatitude-truckObj.posLatitude)**2 + (self.ogLongitude - truckObj.posLongitude)**2)**(1/2)
         return distanceToLoad
     
     def profitForTruck(self, truckObj):
