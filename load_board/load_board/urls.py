@@ -20,5 +20,6 @@ from . import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('publish', views.publish_message, name='publish'),
+    path('publish/', views.publish_message),
+    path('', views.default_page)
 ]
