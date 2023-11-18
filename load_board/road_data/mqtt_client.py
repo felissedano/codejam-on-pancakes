@@ -10,8 +10,7 @@ def on_connect(mqtt_client, userdata, flags, rc):
     print('Bad connection. Code:', rc)
 
 def on_message(mqtt_client, userdata, msg):
-  # print(msg.payload)
-  views.createRow(msg.payload)
+  views.read_message(msg.payload)
 
 
 client = mqtt.Client(client_id="ColdJam on Pancakes-01")
