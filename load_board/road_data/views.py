@@ -28,6 +28,9 @@ def index(request):
 #         max_length=2,
 #         choices=TruckType.choices
 #     )
-    l = Load(loadid=101,latitude=39.531354,longitude=37.639,price=3150.0,mileage=2166.0,type='VN')
-    l.save()
-    return JsonResponse({"msg": Load.objects.count()})
+    # l = Load(loadid=101,latitude=39.531354,longitude=37.639,price=3150.0,mileage=2166.0,type='VN')
+    # l.save()
+
+    # template = loader.get_template("polls/index.html")
+
+    return render(request, "index.html")
