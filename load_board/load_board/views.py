@@ -1,5 +1,6 @@
 import json
 from django.http import JsonResponse
+from django.shortcuts import render
 from . import mqtt_client
 
 def default_page(request):
@@ -10,3 +11,5 @@ def publish_message(request):
     rc, mid = mqtt_client.client.publish(request_data['topic'], request_data['msg'])
     return JsonResponse({'code': rc})
 
+def index(request):
+    return render(request, 'base.html')
