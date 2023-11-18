@@ -1,8 +1,7 @@
 import paho.mqtt.client as mqtt
 from . import settings
-from . import models
+from . import addData
 
-model = models.Models()
 def on_connect(mqtt_client, userdata, flags, rc):
   if rc == 0:
     print('Connected successfully')
@@ -11,7 +10,7 @@ def on_connect(mqtt_client, userdata, flags, rc):
     print('Bad connection. Code:', rc)
 
 def on_message(mqtt_client, userdata, msg):
-  model.instantiateObject(msg.payload)
+  addData.createRow(msg.payload)
 
 
 client = mqtt.Client(client_id="ColdJam on Pancakes-01")
