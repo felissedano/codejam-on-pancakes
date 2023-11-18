@@ -1,16 +1,20 @@
 from django.shortcuts import render
 import json
 from django.http import JsonResponse, HttpResponse
-from . import mqtt_client
-# from .models import Truck,Load
+from django.views.decorators.csrf import csrf_exempt
+from .models import Truck,Load
 import datetime as dt
-from . import mqtt_client
 
-
+@csrf_exempt
 def read_message(request):
-    response = mqtt_client.getEvents()
+    if request.method == 'POST':
+        print(request.body)
+        jsonObj = request.body.decode('UTF-8')
+        jsonObj = json.loads(jsonObj)
     
-    return HttpResponse(response)
+    print(jsonObj)
+    createRow(jsonObj)
+    return HttpResponse("You good bro")
 
 # def publish_message(request):
 #     request_data = json.loads(request.body)
@@ -19,33 +23,33 @@ def read_message(request):
 
 
 
-# def createRow(jsonObj):
-#         jsonObj = jsonObj.decode('UTF-8')
-#         jsonObj = json.loads(jsonObj)
-#         if jsonObj['type'] == 'Truck':
-#             loadDetails = jsonObj
-#             seq = loadDetails['seq']
-#             timeStamp = loadDetails['timeStamp']
-#             loadId = loadDetails['loadId']
-#             ogLatitude = loadDetails['originLatitude']
-#             ogLongitude = loadDetails['originLongtitude']
-#             destLatitude = loadDetails['destinationLatitude']
-#             destLongitude = loadDetails['destinationLongtitude']
-#             eqType = loadDetails['equipmentType']
-#             price = loadDetails['price']
-#             mileage = loadDetails['mileage']
-#             load = Load(seq = seq, timeStamp = timeStamp, loadId = loadId, ogLatitude = ogLatitude, ogLongitude = ogLongitude, 
-#                         destLatitude = destLatitude, destLongitude = destLongitude, eqType = eqType, price = price, mileage = mileage)
-#             load.save()
-#         elif jsonObj['type'] == 'Load':
-#             truckDetails = jsonObj
-#             seq = truckDetails['seq']
-#             timeStamp = truckDetails['timestamp']
-#             truckId = truckDetails['truckId']
-#             posLatitude = truckDetails['positionLatitude']
-#             posLongitude = truckDetails['positionLongtitude']
-#             eqType = truckDetails['equipType']
-#             nextTripPref = truckDetails['nextTripLengthPreference']
-#             truck = Truck(seq = seq,timeStamp=timeStamp,truckId = truckId,posLatitude = posLatitude, posLongitude = posLongitude,
-#                         eqType = eqType, nextTripPref = nextTripPref, idleTime = 0, lastnotified=dt.datetime.now())
-#             truck.save()
+def createRow(jsonObj):
+        jsonObj = jsonObj.decode('UTF-8')
+        jsonObj = json.loads(jsonObj)
+        if jsonObj['type'] == 'Truck':
+            loadDetails = jsonObj
+            seq = loadDetails['seq']
+            timeStamp = loadDetails['timeStamp']
+            loadId = loadDetails['loadId']
+            ogLatitude = loadDetails['originLatitude']
+            ogLongitude = loadDetails['originLongtitude']
+            destLatitude = loadDetails['destinationLatitude']
+            destLongitude = loadDetails['destinationLongtitude']
+            eqType = loadDetails['equipmentType']
+            price = loadDetails['price']
+            mileage = loadDetails['mileage']
+            load = Load(seq = seq, timeStamp = timeStamp, loadId = loadId, ogLatitude = ogLatitude, ogLongitude = ogLongitude, 
+                        destLatitude = destLatitude, destLongitude = destLongitude, eqType = eqType, price = price, mileage = mileage)
+            load.save()
+        elif jsonObj['type'] == 'Load':
+            truckDetails = jsonObj
+            seq = truckDetails['seq']
+            timeStamp = truckDetails['timestamp']
+            truckId = truckDetails['truckId']
+            posLatitude = truckDetails['positionLatitude']
+            posLongitude = truckDetails['positionLongtitude']
+            eqType = truckDetails['equipType']
+            nextTripPref = truckDetails['nextTripLengthPreference']
+            truck = Truck(seq = seq,timeStamp=timeStamp,truckId = truckId,posLatitude = posLatitude, posLongitude = posLongitude,
+                        eqType = eqType, nextTripPref = nextTripPref, idleTime = 0, lastnotified=dt.datetime.now())
+            truck.save()
