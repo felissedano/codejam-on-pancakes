@@ -48,21 +48,12 @@ header{
     align-items: center;
     display: flex;
     justify-content: center;
-}
-
-footer{
-    background-color: #9b4fff;
-    color: white;
-    height: 50px;
-    width: 100%;
+    z-index: 10;
     position: fixed;
-    bottom: 0;
-    align-items: center;
-    display: flex;
-    justify-content: center;
+    width: 100%;
 }
 
-a.footer{
+header a{
     text-decoration: none;
     color: rgb(255, 194, 61);
 }
@@ -74,16 +65,39 @@ a.footer{
 
 #beautiful-truck{
     position: absolute;
-    opacity: 0.5;
+    opacity: 0.6;
     max-width: 100vw;
     height: auto;
+    bottom: 0;
 }
 
 /* Landing page style */
 .landing-main-content{
-    margin-top: 250px;
+    margin: 15vw 0;
     position: relative;
 }
+
+.start-simulation {
+    display: inline-flex;
+    gap: 5vw;
+}
+
+.start-simulation .left {
+    align-self: center;
+    text-align: center;
+    font-size: large;
+    padding: 0 50px;
+    width: 40vw;
+}
+
+.start-simulation .right {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 20vw;
+}
+
 
 /* Simulation page style */
 .simulation-content{
