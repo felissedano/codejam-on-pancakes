@@ -1,4 +1,4 @@
-class Load():
+class Loads():
     PRICE = 1.18
     def __init__(self, seq, timeStamp, loadId, ogLatitude, ogLongitude, destLatitude, destLongitude, eqType, price, mileage):
         self.seq = seq
@@ -18,6 +18,6 @@ class Load():
     
     def profitForTruck(self, truckObj):
         profit = self.price
-        profit -= self.distanceToLoad(truckObj)*Load.PRICE
-        profit -= self.mileage*Load.PRICE
+        profit -= self.distanceToLoad(truckObj)*Loads.PRICE
+        profit -= self.mileage*Loads.PRICE
         return profit

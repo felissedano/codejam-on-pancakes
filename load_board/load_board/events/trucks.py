@@ -1,4 +1,4 @@
-class Truck():
+class Trucks():
     def __init__(self,seq,timeStamp,truckId, posLatitude, posLongitude, eqType, nextTripPreference):
         self.seq = seq
         self.timeStamp = timeStamp
