@@ -9,6 +9,8 @@ from .dataRetriever import run_client
 from threading import Thread
 import time
 
+
+
 def start_simulation(request):
     thread = Thread(target=run_client)
     thread.start()

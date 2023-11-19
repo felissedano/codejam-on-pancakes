@@ -139,6 +139,31 @@ header a{
 }
 
 
+.progressbar {
+  position: relative;
+  max-width: 500px;
+  width: 100%;
+  margin: 30px auto 0;
+  height: 30px;
+  background: rgb(255, 194, 61);
+  overflow: hidden;
+}
+
+span.progress {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 0;
+  background: #9b4fff;
+  transition: all .3s;
+}
+
+.counter{
+    margin-top: 20px;
+    /* transform: translateY(-20px);     */
+
+}
 /* Simulation page style */
 .simulation-content table{
     margin: 0 auto;
