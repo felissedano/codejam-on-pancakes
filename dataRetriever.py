@@ -13,8 +13,7 @@ def on_message(mqtt_client, userdata, msg):
     jsonObj = msg.payload.decode('UTF-8')
     jsonObj = json.loads(jsonObj)
     try:
-        response = requests.post(url="http://localhost:8000/readMsg/",json=jsonObj)
-        print(response.body)
+        requests.post(url="http://localhost:8000/readMsg/",json=jsonObj)
     except:
         print("RUN DJANGO PLS")
 
@@ -25,6 +24,4 @@ client.subscribe("CodeJam", qos=1)
 client.on_connect = on_connect
 client.on_message = on_message
 
-while True:
-    client.loop_start()
-    break
+client.loop_forever()
