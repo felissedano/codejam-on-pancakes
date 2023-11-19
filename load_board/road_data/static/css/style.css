@@ -11,34 +11,66 @@ h2{
     font-size: 50px;
 }
 
-button{
-    font-family: 'Varela Round', sans-serif;
-    font-size: 20px;
-    border: 0;
-    background-color: #9b4fff;
-    color: white;
-    border-radius: 5px;
-    padding: 15px;
+/* button{
     justify-content: center;
     align-items: center;
     display: inline-grid;
     grid-template-columns: auto auto auto;
     place-items: center;
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+} */
 
+button {
+    font-family: 'Varela Round', sans-serif;
+    color: white;
+    font-size: 25px;
+
+
+    display: inline-block;
+    border-radius: 5px;
+    background-color: #9b4fff;
+    border: none;
+    text-align: center;
+    padding: 15px;
+    width: 200px;
+    transition: all 0.5s;
+    cursor: pointer;
+    margin: 5px;
+}
+  
+button span {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+}
+  
+button span:after {
+    content: url("truck-white.png");
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: -20px;
+    transition: 0.5s;
+}
+  
+button:hover span {
+    padding-right: 25px;
+}
+  
+button:hover span:after {
+    opacity: 1;
+    right: 0;
 }
 
-button:hover{
-    background-color: #5011a3;
-    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
-}
 
-.button-item1{
+
+/* .button-item1{
     grid-column: 1/2;
 }
+
 .button-item2{
     grid-column: 2/3;
-}
+} */
 
 img{
     float: right;
