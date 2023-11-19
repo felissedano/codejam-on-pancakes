@@ -3,6 +3,7 @@ body{
     text-align: center;
     margin: 0;
     font-family: 'Varela Round', sans-serif;
+    color: #1d1d27;
 }
 
 h2{
@@ -12,11 +13,12 @@ h2{
 
 button{
     font-family: 'Varela Round', sans-serif;
+    font-size: 20px;
     border: 0;
     background-color: #9b4fff;
     color: white;
     border-radius: 5px;
-    padding: 10px;
+    padding: 15px;
     justify-content: center;
     align-items: center;
     display: inline-grid;
@@ -50,24 +52,19 @@ header{
     align-items: center;
     display: flex;
     justify-content: center;
-}
-
-footer{
-    background-color: #9b4fff;
-    color: white;
-    height: 50px;
     width: 100%;
-    position: fixed;
-    bottom: 0;
-    align-items: center;
-    display: flex;
-    justify-content: center;
 }
 
-a.footer{
+header a{
     text-decoration: none;
     color: rgb(255, 194, 61);
 }
+
+.fixed-page-header{
+    position: fixed;
+    z-index: 1;
+}
+
 
 .landing{
     overflow: hidden;
@@ -76,20 +73,43 @@ a.footer{
 
 #beautiful-truck{
     position: absolute;
-    opacity: 0.5;
+    opacity: 0.6;
     max-width: 100vw;
     height: auto;
+    bottom: 0;
 }
 
 /* Landing page style */
 .landing-main-content{
-    margin-top: 250px;
+    margin: 15vw 0;
     position: relative;
 }
 
+.start-simulation {
+    display: inline-flex;
+    gap: 5vw;
+}
+
+.start-simulation .left {
+    align-self: center;
+    text-align: center;
+    font-size: large;
+    padding: 0 50px;
+    width: 40vw;
+}
+
+.start-simulation .right {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 20vw;
+}
+
+
 /* Simulation page style */
-.simulation-content{
-    margin: 0 15px 0 15px;
+.simulation-content table{
+    margin: 0 auto;
 }
 
 /* table{
