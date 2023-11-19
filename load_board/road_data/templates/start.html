@@ -9,6 +9,13 @@
     <header> 
         Website by <a href="{% url 'credits' %}"> &nbsp; CodeJam on Pancakes</a>
     </header>
+
+    <div class="counter">0</div>
+    <div class="progressbar">
+      <span class="progress"></span>
+    </div>
+
+
     <div class="right">
         <p>Simulation started...</p>
             <a  href="{% url 'seeNotifs' %}">
@@ -18,4 +25,33 @@
             </a>
     </div>
 </body>
+
+
+
+<script>
+    window.addEventListener('load', function () {
+    var progress = document.querySelector('.progressbar .progress')
+        
+    function counterInit( fValue, lValue ) {
+  
+      var counter_value = parseInt( document.querySelector('.counter').innerHTML );
+      counter_value++;
+  
+      if( counter_value >= fValue && counter_value <= lValue ) {
+  
+        document.querySelector('.counter').innerHTML = counter_value + '%';
+        progress.style.width = +counter_value.toString() + "%";
+  
+        setTimeout( function() {
+          counterInit( fValue, lValue );
+        }, 50 );
+  
+  
+      }
+  
+    }
+  
+    counterInit( 0, 100 );
+}, false);
+  </script>
 </html>

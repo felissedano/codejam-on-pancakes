@@ -3,7 +3,6 @@ import json
 import requests
 import time
 
-
 def on_connect(mqtt_client, userdata, flags, rc):
     if rc == 0:
         print('Connected successfully')
@@ -16,8 +15,8 @@ def on_message(mqtt_client, userdata, msg):
     jsonObj = json.loads(jsonObj)
     try:
         requests.post(url="http://localhost:8000/readMsg/",json=jsonObj)
-    except:
-        print("RUN DJANGO PLS")
+    except Exception as e:
+        print("RUN DJANGO PLS", e)
 
 def run_client():
 
@@ -28,7 +27,7 @@ def run_client():
     client.on_connect = on_connect
     client.on_message = on_message
     startTime = time.perf_counter()
-    runTime = 10 #5 * 60
+    runTime = 100 #5 * 60
     while True:
         client.loop()
         currentTime = time.perf_counter()
