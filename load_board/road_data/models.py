@@ -55,4 +55,4 @@ class Notification(models.Model):
 
 
     def __str__(self):
-        return "<p>" + str(self.message) + "at" + str(self.timeSent) + "\n next \n" + "</p>"
+        return "<p>" + str(self.message) + " at " + str(self.timeSent) + "\n" + "</p>"

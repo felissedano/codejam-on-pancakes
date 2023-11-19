@@ -5,6 +5,12 @@ from django.views.decorators.csrf import csrf_exempt
 from .models import Truck,Load, Notification
 import datetime as dt
 
+def index(request):
+    return render(request, 'index.html')
+
+def credits(request):
+    return render(request, 'credits.html')
+
 @csrf_exempt
 def read_message(request):
     if request.method == 'POST':
@@ -15,10 +21,6 @@ def read_message(request):
     else:
         return HttpResponse("There was some issue")
 
-# def publish_message(request):
-#     request_data = json.loads(request.body)
-#     # to fix the duplicate messages
-#     rc, mid = mqtt_client.client.publish(request_data['topic'], request_data['msg'])
 def create_notif(compatible: dict):
     for k,v in compatible.items():
         for truck in v:
@@ -47,7 +49,9 @@ def see_dataLoad(request):
     return HttpResponse(Load.objects.all())
 
 def see_dataNotif(request):
-    return HttpResponse(Notification.objects.all())
+    context = list(Notification.objects.values())
+    context = {'data': context}
+    return render(request,'table.html', context)
 
 def createRow(jsonObj):
     if jsonObj['type'] == 'Load':

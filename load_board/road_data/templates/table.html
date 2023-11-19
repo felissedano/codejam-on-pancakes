@@ -1,0 +1,16 @@
+{% extends 'simulation.html' %}
+
+{% block content %}
+
+{% for c in data %}
+        
+    <tr>
+        <td>{{c.truckId}}</td>
+        <td>{{c.loadId}}</td>
+        <td>{{c.timeSent}}</td>
+        <td>{{c.message}}</td>
+    </tr>
+
+{% endfor %}
+
+{% endblock %}
