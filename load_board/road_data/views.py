@@ -1,9 +1,18 @@
 from django.shortcuts import render
 import json
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from .models import Truck,Load, Notification
 import datetime as dt
+from django.core import serializers
+from .dataRetriever import run_client
+from threading import Thread
+
+def start_simulation(request):
+    Thread(target=run_client).start()
+
+    return HttpResponse("Simulation Started")
+
 
 def index(request):
     return render(request, 'index.html')
@@ -53,6 +62,7 @@ def see_dataNotif(request):
     context = {'data': context}
     return render(request,'table.html', context)
 
+
 def createRow(jsonObj):
     if jsonObj['type'] == 'Load':
         loadDetails = jsonObj
@@ -83,3 +93,5 @@ def createRow(jsonObj):
                     eqType = eqType, nextTripPref = nextTripPref, idleTime = 0, lastnotified=dt.datetime.now())
         truck.save()
         print("Wrote succesfully")
+    
+    updateNotifications(jsonObj)
