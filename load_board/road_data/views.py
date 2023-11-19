@@ -7,11 +7,13 @@ import datetime as dt
 from django.core import serializers
 from .dataRetriever import run_client
 from threading import Thread
+import time
 
 def start_simulation(request):
-    Thread(target=run_client).start()
-
-    return HttpResponse("Simulation Started")
+    thread = Thread(target=run_client)
+    thread.start()
+    # return HttpResponse("Simulation Started")
+    return render(request, 'start.html')
 
 
 def index(request):
@@ -34,8 +36,8 @@ def create_notif(compatible: dict):
     for k,v in compatible.items():
         for truck in v:
             if truck[1] > 0:
-                message = f"Hi {truck[0].truckId}, load {k.loadId} available, and you'll make {truck[1]} money!"
-                notification = Notification(truckId=truck[0].truckId, loadId=k.loadId,message=message, timeSent=dt.datetime.now())
+                message = f"Hi {truck[0].truckId}, load {k.loadId} available, and you'll make ${truck[1]:.2f}!"
+                notification = Notification(truckId=truck[0].truckId, loadId=k.loadId,message=message, timeSent=dt.datetime.now())#time.perf_counter())#dt.datetime.now()
                 notification.save()
 
 def updateNotifications(request):

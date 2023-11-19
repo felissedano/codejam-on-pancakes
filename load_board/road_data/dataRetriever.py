@@ -28,7 +28,7 @@ def run_client():
     client.on_connect = on_connect
     client.on_message = on_message
     startTime = time.perf_counter()
-    runTime = 20 #5 * 60
+    runTime = 10 #5 * 60
     while True:
         client.loop()
         currentTime = time.perf_counter()

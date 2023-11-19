@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <title>Start</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <header> 
+        Website by <a href="{% url 'credits' %}"> &nbsp; CodeJam on Pancakes</a>
+    </header>
+    <div class="right">
+        <p>Simulation started...</p>
+            <a  href="{% url 'seeNotifs' %}">
+                <button>
+                    <div class="button-item1">
+                        See results &nbsp;
+                    </div>
+                    <img src="{% static 'css/truck-white.png' %}" alt="" class="button-item2">
+                </button>
+            </a>
+    </div>
+</body>
+</html>
