@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <title>Simulation</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    
+    <header> 
+        Website by <a href="{% url 'credits' %}"> &nbsp; CodeJam on Pancakes</a>
+    </header>
+
+
+
+    <p>Example of what it's supposed to look like below</p>
+
+    <div class="simulation-content">
+        <table>
+            <tr>
+                <th>Truck ID</th>
+                <th>Load ID</th>
+                <th>Time Posted</th>
+                <th>Message</th>
+            </tr>
+            {% block content %}
+            {% endblock %}      
+        </table> 
+    </div>
+
+
+</body>
+</html>

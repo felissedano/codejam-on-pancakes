@@ -14,6 +14,12 @@ def start_simulation(request):
     return HttpResponse("Simulation Started")
 
 
+def index(request):
+    return render(request, 'index.html')
+
+def credits(request):
+    return render(request, 'credits.html')
+
 @csrf_exempt
 def read_message(request):
     if request.method == 'POST':
@@ -24,10 +30,6 @@ def read_message(request):
     else:
         return HttpResponse("There was some issue")
 
-# def publish_message(request):
-#     request_data = json.loads(request.body)
-#     # to fix the duplicate messages
-#     rc, mid = mqtt_client.client.publish(request_data['topic'], request_data['msg'])
 def create_notif(compatible: dict):
     for k,v in compatible.items():
         for truck in v:
@@ -56,17 +58,10 @@ def see_dataLoad(request):
     return HttpResponse(Load.objects.all())
 
 def see_dataNotif(request):
-    # data = Notification.objects.all().values()
-    # json_data = json.dumps(list(data))
-    # return HttpResponse(json_data, content_type='application/json')
-    # return HttpResponse(Notification.objects.all())
-    notif_data = serializers.serialize("json", Notification.objects.all())
-    data = {"Notifications": notif_data}
-    data_json = json.loads(data['Notifications'])
-    # for staff in data_json: print(staff);return JsonResponse(staff)
+    context = list(Notification.objects.values())
+    context = {'data': context}
+    return render(request,'table.html', context)
 
-    print(data['Notifications'])
-    return JsonResponse(data)
 
 def createRow(jsonObj):
     if jsonObj['type'] == 'Load':
