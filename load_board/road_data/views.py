@@ -5,8 +5,12 @@ from django.views.decorators.csrf import csrf_exempt
 from .models import Truck,Load, Notification
 import datetime as dt
 from django.core import serializers
+from .dataRetriever import run_client
+from threading import Thread
 
 def start_simulation(request):
+    Thread(target=run_client).start()
+
     return HttpResponse("Simulation Started")
 
 
@@ -58,11 +62,10 @@ def see_dataNotif(request):
     # return HttpResponse(Notification.objects.all())
     notif_data = serializers.serialize("json", Notification.objects.all())
     data = {"Notifications": notif_data}
-    # jsonObj = request.body.decode('UTF-8')
-    # data['Notifications'].decode('UTF-8')
-    # data_json = json.loads(data['Notifications'])
-    # for staff in jsonObj: print(staff['fields']['truckId'])
-    # print(data_json)
+    data_json = json.loads(data['Notifications'])
+    # for staff in data_json: print(staff);return JsonResponse(staff)
+
+    print(data['Notifications'])
     return JsonResponse(data)
 
 def createRow(jsonObj):
