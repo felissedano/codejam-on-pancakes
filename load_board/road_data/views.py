@@ -2,7 +2,7 @@ from django.shortcuts import render
 import json
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
-from .models import Truck,Load
+from .models import Truck,Load, Notification
 import datetime as dt
 
 @csrf_exempt
@@ -19,7 +19,13 @@ def read_message(request):
 #     request_data = json.loads(request.body)
 #     # to fix the duplicate messages
 #     rc, mid = mqtt_client.client.publish(request_data['topic'], request_data['msg'])
-
+def create_notif(compatible: dict):
+    for k,v in compatible.items():
+        for truck in v:
+            if truck[1] > 0:
+                message = f"Hi {truck[0].truckId}, load {k.loadId} available, and you'll make {truck[1]} money!"
+                notification = Notification(truckId=truck[0].truckId, loadId=k.loadId,message=message, timeSent=dt.datetime.now())
+                notification.save()
 
 def updateNotifications(request):
     eqType = ['Van','FlatBed','Reefer']
@@ -31,6 +37,7 @@ def updateNotifications(request):
             compatible[l] = []
             for t in trucks:
                 compatible[l].append((t, l.profitForTruck(t)))
+    create_notif(compatible)
     return HttpResponse(compatible)
 
 def see_dataTruck(request):
@@ -38,6 +45,9 @@ def see_dataTruck(request):
 
 def see_dataLoad(request):
     return HttpResponse(Load.objects.all())
+
+def see_dataNotif(request):
+    return HttpResponse(Notification.objects.all())
 
 def createRow(jsonObj):
     if jsonObj['type'] == 'Load':
