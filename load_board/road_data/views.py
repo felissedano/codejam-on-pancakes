@@ -1,6 +1,6 @@
 from django.shortcuts import render
 import json
-from django.http import JsonResponse, HttpResponse
+from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from .models import Truck,Load
 import datetime as dt
@@ -11,19 +11,33 @@ def read_message(request):
         jsonObj = request.body.decode('UTF-8')
         jsonObj = json.loads(jsonObj)
         createRow(jsonObj)
-    return HttpResponse("You good bro")
+        return HttpResponse("Mesg recieved successfully!")
+    else:
+        return HttpResponse("There was some issue")
 
 # def publish_message(request):
 #     request_data = json.loads(request.body)
 #     # to fix the duplicate messages
 #     rc, mid = mqtt_client.client.publish(request_data['topic'], request_data['msg'])
 
+
+def updateNotifications(request):
+    eqType = ['Van','FlatBed','Reefer']
+    compatible = {}
+    for e in eqType:
+        loads = Load.objects.filter(eqType=e)
+        trucks = Truck.objects.filter(eqType=e)
+        for l in loads:
+            compatible[l] = []
+            for t in trucks:
+                compatible[l].append((t, l.profitForTruck(t)))
+    return HttpResponse(compatible)
+
 def see_dataTruck(request):
     return HttpResponse(Truck.objects.all())
 
 def see_dataLoad(request):
     return HttpResponse(Load.objects.all())
-
 
 def createRow(jsonObj):
     if jsonObj['type'] == 'Load':
