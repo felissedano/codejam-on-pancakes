@@ -1,9 +1,14 @@
 from django.shortcuts import render
 import json
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from .models import Truck,Load, Notification
 import datetime as dt
+from django.core import serializers
+
+def start_simulation(request):
+    return HttpResponse("Simulation Started")
+
 
 @csrf_exempt
 def read_message(request):
@@ -47,7 +52,18 @@ def see_dataLoad(request):
     return HttpResponse(Load.objects.all())
 
 def see_dataNotif(request):
-    return HttpResponse(Notification.objects.all())
+    # data = Notification.objects.all().values()
+    # json_data = json.dumps(list(data))
+    # return HttpResponse(json_data, content_type='application/json')
+    # return HttpResponse(Notification.objects.all())
+    notif_data = serializers.serialize("json", Notification.objects.all())
+    data = {"Notifications": notif_data}
+    # jsonObj = request.body.decode('UTF-8')
+    # data['Notifications'].decode('UTF-8')
+    # data_json = json.loads(data['Notifications'])
+    # for staff in jsonObj: print(staff['fields']['truckId'])
+    # print(data_json)
+    return JsonResponse(data)
 
 def createRow(jsonObj):
     if jsonObj['type'] == 'Load':
@@ -79,3 +95,5 @@ def createRow(jsonObj):
                     eqType = eqType, nextTripPref = nextTripPref, idleTime = 0, lastnotified=dt.datetime.now())
         truck.save()
         print("Wrote succesfully")
+    
+    updateNotifications(jsonObj)
